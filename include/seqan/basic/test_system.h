@@ -229,7 +229,11 @@ public:
     template <typename T>
     static std::string getTypeName()
     {
+#if SEQAN_ENABLE_DEBUG
         const char* const name = typeid(T).name();
+#else
+        const char* const name = "";
+#endif
 #if !defined(STDLIB_VS)
         int status = 0;
         char* const readableName = abi::__cxa_demangle(name, 0, 0, &status);

@@ -223,11 +223,16 @@ struct Demangler
 template <typename T>
 inline void _demangle(Demangler<T> & me, T const & t)
 {
+#if SEQAN_ENABLE_DEBUG
 #if !defined(STDLIB_VS)
     int status;
     me.data_begin = abi::__cxa_demangle(typeid(t).name(), NULL, NULL, &status);
 #else
     me.data_begin = typeid(t).name();
+#endif
+#else
+    (void)me;
+    (void)t;
 #endif
 }
 
